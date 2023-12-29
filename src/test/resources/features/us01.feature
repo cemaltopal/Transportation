@@ -1,7 +1,7 @@
 Feature:US_01_Dashboard_Elemanlarını_Kullanma
 
   @TC_01
-Scenario:Hakkimizda_Sekmesi
+Scenario:Dashboard_Sekmeleri
   Given Kullanici_Anasayfaya_Gider
     When Kullanici_Bilgilendirme_Penceresini_Kapatir
     Then Kullanici_Hakkimizda_Sekmesinin_Kullanilabilir_Oldugunu_Dogrular

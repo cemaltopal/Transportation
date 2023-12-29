@@ -1,7 +1,15 @@
-Feature:US_01_Dashboard_Elemanlarını_Kullanma
+Feature:US_09_Size_Nasil_Yardimci_Olabilirim_Popup
 
   @TC_09
-Scenario:Hakkimizda_Sekmesi
-  Given Kullanici_Anasayfaya_Gider
+Scenario:Popup_Testleri
+    Given Kullanici_Anasayfaya_Gider
     When Kullanici_Bilgilendirme_Penceresini_Kapatir
-    Then Kullanici_Hakkimizda_Sekmesinin_Kullanilabilir_Oldugunu_Dogrular
+    When Kullanici_Size_Nasil_Yardimci_Olabilirim_Popupa_Tıklar
+    And Kullanici_Devam_Butonuna_Tiklar
+    And Kullanici_AdSoyad_Textboxuna_Deger_Girer
+      And Kullanici_PhoneNumber_Textboxuna_Deger_Girer
+
+
+
+
+

@@ -12,12 +12,18 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import pages.US09_Popup_Pages;
 import utilities.ConfigReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
+import org.openqa.selenium.Dimension;
+import java.util.Set;
+
+import static utilities.Driver.driver;
 
 public class US_01 {
     US01_Dashboard_Pages dashboardPages = new US01_Dashboard_Pages();
+    US09_Popup_Pages popupPages = new US09_Popup_Pages();
     Actions actions = new Actions(Driver.getDriver());
 
     @Given("Kullanici_Anasayfaya_Gider")
@@ -30,8 +36,10 @@ public class US_01 {
     }
     @When("Kullanici_Bilgilendirme_Penceresini_Kapatir")
     public void kullanici_bilgilendirme_penceresini_kapatir() {
+        ReusableMethods.bekle(5);
         if (dashboardPages.bilgilendirme.isDisplayed()) {
             ReusableMethods.click(dashboardPages.bilgilendirme);
+            ReusableMethods.bekle(2);
         }
     }
     @Then("Kullanici_Hakkimizda_Sekmesinin_Kullanilabilir_Oldugunu_Dogrular")
@@ -170,5 +178,40 @@ public class US_01 {
     @And("Kullanici_BizeUlasin_Sayfasinda_Oldugunu_Dogrular")
     public void kullanici_bizeulasin_sayfasinda_oldugunu_dogrular() {
         Assert.assertTrue(dashboardPages.AKGMYazisi.isDisplayed());
+    }
+
+    @When("Kullanici_Size_Nasil_Yardimci_Olabilirim_Popupa_Tıklar")
+    public void kullanici_size_nasil_yardimci_olabilirim_popupa_tıklar() {
+
+        ReusableMethods.click(US09_Popup_Pages.popup);
+        ReusableMethods.bekle(1);
+    }
+
+    @And("Kullanici_Devam_Butonuna_Tiklar")
+    public void kullanici_devam_butonuna_tiklar() {
+        String anaPencereHandle = driver.getWindowHandle();
+        Set<String> pencereHandles = driver.getWindowHandles();
+        for (String handle : pencereHandles) {
+            if (!handle.equals(anaPencereHandle)) {
+                driver.switchTo().window(handle);
+                break; // İlk bulunan yeni pencereye geçtikten sonra döngüyü kır
+            }
+        }
+        US09_Popup_Pages.devam.click();
+        ReusableMethods.bekle(2);
+    }
+
+    @And("Kullanici_AdSoyad_Textboxuna_Deger_Girer")
+    public void kullanici_adsoyad_textboxuna_deger_girer() {
+        US09_Popup_Pages.adSoyadTextbox.sendKeys("Kemal Can");
+        ReusableMethods.bekle(2);
+        US09_Popup_Pages.gönder.click();
+        ReusableMethods.bekle(1);
+
+    }
+
+    @And("Kullanici_PhoneNumber_Textboxuna_Deger_Girer")
+    public void kullanici_phonenumber_textboxuna_deger_girer() {
+        US09_Popup_Pages.phonetextbox.sendKeys("5555255555",Keys.ENTER);
     }
 }
